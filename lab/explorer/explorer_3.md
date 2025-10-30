@@ -1,9 +1,9 @@
-Perfect — here’s **Level 2** of your C++ daily deck.
+Perfect — here's **Level 3** of your C++ explorer deck.
 This set builds directly toward your **Snake + dynamic-library** project.
 
 ---
 
-# 🧠 C++ Refresher Deck — Level 2
+# 🧠 C++ Explorer Deck — Level 3
 
 _(Start once Level 1 feels automatic.)_
 
@@ -123,6 +123,6 @@ _(Start once Level 1 feels automatic.)_
 
 ---
 
-Copy it to `cpp_daily_refresher_level2.md` and tick off what you master.
+Copy it to `cpp_explorer_level3.md` and tick off what you master.
 
-Would you like me to prepare a **Level 3** (focused purely on the dynamic plugin system + ncurses integration) next?
+Would you like me to prepare a **Level 4** (focused purely on the dynamic plugin system + ncurses integration) next?

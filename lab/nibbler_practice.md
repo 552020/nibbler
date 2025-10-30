@@ -1,4 +1,4 @@
-# 🧠 C++ Project Practice 1
+# 🐍 Nibbler Practice Project
 
 _(Dynamic libraries + ncurses integration)_
 

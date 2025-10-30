@@ -1,10 +1,10 @@
-Great — here is a **Level 2.5: Pure Refresher on C++ Classes, OOP, and Memory Management** before we move to plugins or Snake.
+Great — here is **Level 2: Pure Explorer on C++ Classes, OOP, and Memory Management** before we move to plugins or Snake.
 
-You can add this between Level 2 and Level 3 in your learning plan.
+You can add this between Level 1 and Level 3 in your learning plan.
 
 ---
 
-# 🧠 C++ Refresher Deck — Level 2.5
+# 🧠 C++ Explorer Deck — Level 2
 
 _(Focus: Classes, constructors, copy/move, memory, no graphics yet)_
 
@@ -122,7 +122,7 @@ public:
 
 ### ✅ **Completion Signal**
 
-You are ready to move to **Level 3 (dynamic libraries + ncurses)** when you can:
+You are ready to move to **Level 4 (dynamic libraries + ncurses)** when you can:
 ✔ Write a class with constructor, destructor, copy, move
 ✔ Use `override`, `virtual`, and abstract classes intentionally
 ✔ Manage pointers with RAII / `unique_ptr`

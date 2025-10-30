@@ -1,25 +1,62 @@
-# 🧠 C++ Refresher Deck
+# 🧠 C++ & Rust Explorer Deck
 
-## 🗓️ Daily Core (always start here)
+## 📋 Rules
 
-1. **Hello program**
+### Learning Principles
+
+- **You shall use vim** - No other editors allowed
+- **Write every single character yourself** - Use whatever vim gives you at your disposal
+- **An exercise is passed** if you manage to write it by yourself, compile it, and the result is the expected one
+- **No LLMs are allowed**
+- **If you're stuck and give up** - You're still not allowed to use LLMs, but you should use official or semi-official references for the language
+
+### Official References
+
+- **C++**: [cppreference.com](https://cppreference.com)
+- **Rust**:
+  - [The Book](https://doc.rust-lang.org/book/)
+  - [The Reference](https://doc.rust-lang.org/reference/)
+  - [Rust by Example](https://doc.rust-lang.org/rust-by-example/)
+  - [Rust Standard Library](https://doc.rust-lang.org/std/)
+  - All resources available on [rust-lang.org](https://rust-lang.org/)
+
+### Compilation Commands
+
+- **C++**: `g++ -std=c++20 filename.cpp -o executable`
+- **Rust**: `rustc filename.rs` (creates executable with same name)
+
+### File Naming
+
+- C++ files: `filename.cpp`
+- Rust files: `filename.rs`
+
+---
+
+## 1. 🗓️ Daily Core (always start here)
+
+1. **Hello program** (`hello.cpp` & `hello.rs`)
 
    - Write a minimal `main()` that prints "Hello, World!"
-   - Program should be called `hello.cpp`
-   - Compile with `g++ -std=c++20 hello.cpp -o hello`
 
-2. **Input & output**
+2. **String passing exploration** (`pass_arg.cpp` & `pass_arg.rs`)
+
+   - Explore all the ways we can pass a string to a function
+   - Preparation for understanding input and output string handling
+   - **C++**: Test different parameter types: `string`, `string&`, `const string&`, `string*`
+   - **Rust**: Understand borrowing system - this step explains `std::io::stdin().read_line(&mut name)` where `&mut` introduces mutable borrowing
+
+3. **Input & output** (`greet.cpp`)
 
    - Ask for a name, store in a string, print "Hello, name!"
-   - Create three different versions (of ways of greeting someone), one without an extra greet function, and two with two greet functions
+   - Create three different versions of greeting someone: one without an extra greet function, and two with greet functions
    - Create two different greet functions:
 
      - One that prints directly (void return)
      - One that returns the string to be printed by main
 
-   - Basically at the end you should have a main and the user should be greated three times and input their name just 1 time though.
+   - Basically, at the end you should have a main where the user is greeted three times but inputs their name only once.
 
-3. **Input & output with loop**
+4. **Input & output with loop** (`loop.cpp`)
 
    - Ask "What's your name?" twice using a for loop
    - First time: use normal greet (returns string)
@@ -27,7 +64,7 @@
 
 ---
 
-## 🧩 Data & Functions
+## 2. 🧩 Data & Functions
 
 - [ ] **Struct practice**
 
@@ -44,7 +81,7 @@
 
 ---
 
-## 🧱 Classes & Lifetime
+## 3. 🧱 Classes & Lifetime
 
 - [ ] **Simple class**
 
@@ -65,7 +102,7 @@
 
 ---
 
-## 🔁 Polymorphism & Interfaces
+## 4. 🔁 Polymorphism & Interfaces
 
 - [ ] **Virtual vs. non-virtual**
 
@@ -84,7 +121,7 @@
 
 ---
 
-## ⏱️ Game-Loop Foundations
+## 5. ⏱️ Game-Loop Foundations
 
 - [ ] **Timer & loop**
 
@@ -100,13 +137,13 @@
 
 ---
 
-## 🧮 Fun Challenge
+## 6. 🧮 Fun Challenge
 
 - [ ] **Turing Machine**
 
   - A good exercise would be to write a turing machine. Less than 100 lines of code, simple logic but very exciting
 
-## ⚙️ Extra (when the basics feel smooth)
+## 7. ⚙️ Extra (when the basics feel smooth)
 
 - [ ] Re-implement the same exercises using modern C++20 features (`auto`, range-for, structured bindings).
 - [ ] Add comments explaining each keyword (`virtual`, `override`, `const`, `explicit`).
@@ -114,7 +151,7 @@
 
 ---
 
-You can copy this into a file like `cpp_daily_refresher.md`
+You can copy this into a file like `cpp_explorer.md`
 and mark each task you master:
 
 ```md
