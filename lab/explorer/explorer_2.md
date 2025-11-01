@@ -61,6 +61,28 @@ public:
 
 ---
 
+### ✅ **Section C.5 — Const Correctness & Immutability** (`immutability_advanced`)
+
+Compare how C++ and Rust handle immutability and const correctness:
+
+**C++ version** — Shows the 3 const placements:
+
+- `const Point*` — pointer to const data (can move pointer, can't change data)
+- `Point* const` — const pointer to mutable data (can change data, can't move pointer)
+- `const Point* const` — const pointer to const data (neither)
+
+**Rust version** — Demonstrates Rust's simpler model:
+
+- Immutable bindings (`let`) vs mutable bindings (`let mut`)
+- Immutable borrows (`&T`) vs mutable borrows (`&mut T`)
+- Interior mutability with `Cell` for C++-style opt-in mutability
+
+- [ ] Create `immutability_advanced.cpp` demonstrating all three C++ const pointer variations.
+- [ ] Create `immutability_advanced.rs` showing Rust's borrowing system and `Cell` usage.
+- [ ] Understand: C++ gives you fine-grained control; Rust enforces immutability by default with explicit opt-in for mutability.
+
+---
+
 ### ✅ **Section D — `virtual`, Polymorphism & Interfaces**
 
 - [ ] Write:
