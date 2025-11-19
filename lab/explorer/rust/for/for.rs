@@ -6,7 +6,7 @@ fn main()
 	}
 	// OVER ARRAY
 	let arr = [10, 20, 30];
-	for value in arr {
+	for value in arr { // The value is copied - value in 'value in arr' is just a copy of the value of the elements in arr
 		println!("{}", value);
 	}
 	// WITH INDEX
