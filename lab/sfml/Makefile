@@ -11,7 +11,7 @@ endif
 CC      = g++
 CFLAGS  = -std=c++17 -Wall -Wextra -Werror -O2
 
-SOURCES = main.cpp
+SOURCES = src/main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 SFML_DIR        = SFML
@@ -32,7 +32,7 @@ $(NAME): $(OBJECTS) $(SFML_INSTALL)
 
 # Compilation step: $(SFML_INSTALL) dependency ensures SFML header files are available
 # Purpose: Provides header files needed to compile source files
-%.o: %.cpp $(SFML_INSTALL)
+src/%.o: src/%.cpp $(SFML_INSTALL)
 	$(CC) $(CFLAGS) $(SFML_INC) -c $< -o $@
 
 # Build and install SFML (creates both headers and libraries)
@@ -58,7 +58,7 @@ else
 endif
 
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(OBJECTS) src/*.o
 
 fclean: clean
 	$(RM) $(NAME)

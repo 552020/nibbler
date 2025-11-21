@@ -4,15 +4,23 @@
 
 int main()
 {
+    std::puts("=== Starting SFML test ===");
+    std::puts("Before RenderWindow construction");
+    std::fflush(stdout);
+    
     try {
         // Create the main window (matching SFML example style)
+        std::puts("About to create RenderWindow...");
+        std::fflush(stdout);
         sf::RenderWindow window(sf::VideoMode({800u, 600u}), "SFML window", sf::Style::Titlebar | sf::Style::Close);
+        std::puts("After RenderWindow construction - SUCCESS!");
+        std::fflush(stdout);
         window.setFramerateLimit(60); // Limit to 60 FPS
         std::cout << "Window created" << std::endl;
 
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("cabinet.jpg"))
+    if (!texture.loadFromFile("assets/cabinet.jpg"))
     {
         std::cerr << "Failed to load texture" << std::endl;
         return 1;
@@ -28,7 +36,7 @@ int main()
 
     // Create a graphical text to display
     sf::Font font;
-    if (!font.openFromFile("arial/ARIAL.TTF"))
+    if (!font.openFromFile("assets/arial/ARIAL.TTF"))
     {
         std::cerr << "Failed to load font" << std::endl;
         return 1;
