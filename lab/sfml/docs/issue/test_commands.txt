@@ -1,0 +1,243 @@
+# Copy-paste these commands one by one to test unsetting each variable
+# After each unset, try: ./sfml-app
+# If it works, that variable might be the culprit (or part of the problem)
+
+unset CAML_LD_LIBRARY_PATH
+./sfml-app
+
+# Restore and test next
+export CAML_LD_LIBRARY_PATH=/Users/stefano/.opam/default/lib/stublibs:/Users/stefano/.opam/default/lib/ocaml/stublibs:/Users/stefano/.opam/default/lib/ocaml
+unset COLORTERM
+./sfml-app
+
+export COLORTERM=truecolor
+unset COMMAND_MODE
+./sfml-app
+
+export COMMAND_MODE=unix2003
+unset COMPACT_HOME
+./sfml-app
+
+export COMPACT_HOME=/Users/stefano/Documents/Code/Cardano/bin/compactc/compactc-macos
+unset CURSOR_TRACE_ID
+./sfml-app
+
+export CURSOR_TRACE_ID=b5b22a793c2e43f797007479d61999d0
+unset DISPLAY
+./sfml-app
+
+export DISPLAY=/private/tmp/com.apple.launchd.gxVclvPuiQ/org.xquartz:0
+unset DOTNET_ROOT
+./sfml-app
+
+export DOTNET_ROOT=/usr/local/share/dotnet/x64
+unset GIT_ASKPASS
+./sfml-app
+
+export GIT_ASKPASS=/Applications/Cursor.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+unset HOMEBREW_CELLAR
+./sfml-app
+
+export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+unset HOMEBREW_PREFIX
+./sfml-app
+
+export HOMEBREW_PREFIX=/opt/homebrew
+unset HOMEBREW_REPOSITORY
+./sfml-app
+
+export HOMEBREW_REPOSITORY=/opt/homebrew
+unset INFOPATH
+./sfml-app
+
+export INFOPATH=/opt/homebrew/share/info:
+unset LANG
+./sfml-app
+
+export LANG=en_US.UTF-8
+unset LESS
+./sfml-app
+
+export LESS=-R
+unset LOGNAME
+./sfml-app
+
+export LOGNAME=stefano
+unset LSCOLORS
+./sfml-app
+
+export LSCOLORS=Gxfxcxdxbxegedabagacad
+unset LS_COLORS
+./sfml-app
+
+export LS_COLORS=di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
+unset LaunchInstanceID
+./sfml-app
+
+export LaunchInstanceID=951B4739-66F6-4FD9-8778-5009F40807F0
+unset MallocNanoZone
+./sfml-app
+
+export MallocNanoZone=0
+unset NVM_BIN
+./sfml-app
+
+export NVM_BIN=/Users/stefano/.nvm/versions/node/v22.17.0/bin
+unset NVM_CD_FLAGS
+./sfml-app
+
+export NVM_CD_FLAGS=-q
+unset NVM_DIR
+./sfml-app
+
+export NVM_DIR=/Users/stefano/.nvm
+unset NVM_INC
+./sfml-app
+
+export NVM_INC=/Users/stefano/.nvm/versions/node/v22.17.0/include/node
+unset N_PREFIX
+./sfml-app
+
+export N_PREFIX=/usr/local/n
+unset OCAMLTOP_INCLUDE_PATH
+./sfml-app
+
+export OCAMLTOP_INCLUDE_PATH=/Users/stefano/.opam/default/lib/toplevel
+unset OCAML_TOPLEVEL_PATH
+./sfml-app
+
+export OCAML_TOPLEVEL_PATH=/Users/stefano/.opam/default/lib/toplevel
+unset OLDPWD
+./sfml-app
+
+export OLDPWD=/Users/stefano/Documents/Code/42/Advanced/nibbler/lab/sfml
+unset OPAMNOENVNOTICE
+./sfml-app
+
+export OPAMNOENVNOTICE=true
+unset OPAM_LAST_ENV
+./sfml-app
+
+export OPAM_LAST_ENV=/Users/stefano/.opam/.last-env/env-59ac0b36b1c224a2d17ef2e4eb3bd1ec-0
+unset OPAM_SWITCH_PREFIX
+./sfml-app
+
+export OPAM_SWITCH_PREFIX=/Users/stefano/.opam/default
+unset ORIGINAL_XDG_CURRENT_DESKTOP
+./sfml-app
+
+export ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+unset PAGER
+./sfml-app
+
+export PAGER=less
+unset PKG_CONFIG_PATH
+./sfml-app
+
+export PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig:
+unset PNPM_HOME
+./sfml-app
+
+export PNPM_HOME=/Users/stefano/Library/pnpm
+unset PWD
+./sfml-app
+
+export PWD=/Users/stefano/Documents/Code/42/Advanced/nibbler/lab/sfml
+unset RBENV_SHELL
+./sfml-app
+
+export RBENV_SHELL=zsh
+unset SECURITYSESSIONID
+./sfml-app
+
+export SECURITYSESSIONID=186a2
+unset SHELL
+./sfml-app
+
+export SHELL=/bin/zsh
+unset SHLVL
+./sfml-app
+
+export SHLVL=1
+unset SSH_AUTH_SOCK
+./sfml-app
+
+export SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.wCbvyYUVj3/Listeners
+unset TERM
+./sfml-app
+
+export TERM=xterm-256color
+unset TERM_PROGRAM
+./sfml-app
+
+export TERM_PROGRAM=vscode
+unset TERM_PROGRAM_VERSION
+./sfml-app
+
+export TERM_PROGRAM_VERSION=2.0.77
+unset TMPDIR
+./sfml-app
+
+export TMPDIR=/var/folders/2r/k2qkn9ld2t787q_c5xkh3b2r0000gp/T/
+unset USER
+./sfml-app
+
+export USER=stefano
+unset USER_ZDOTDIR
+./sfml-app
+
+export USER_ZDOTDIR=/Users/stefano
+unset VSCODE_GIT_ASKPASS_EXTRA_ARGS
+./sfml-app
+
+export VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+unset VSCODE_GIT_ASKPASS_MAIN
+./sfml-app
+
+export VSCODE_GIT_ASKPASS_MAIN=/Applications/Cursor.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+unset VSCODE_GIT_ASKPASS_NODE
+./sfml-app
+
+export VSCODE_GIT_ASKPASS_NODE=/Applications/Cursor.app/Contents/Frameworks/Cursor Helper (Plugin).app/Contents/MacOS/Cursor Helper (Plugin)
+unset VSCODE_GIT_IPC_HANDLE
+./sfml-app
+
+export VSCODE_GIT_IPC_HANDLE=/var/folders/2r/k2qkn9ld2t787q_c5xkh3b2r0000gp/T/vscode-git-3bceaae677.sock
+unset VSCODE_INJECTION
+./sfml-app
+
+export VSCODE_INJECTION=1
+unset VSCODE_PROFILE_INITIALIZED
+./sfml-app
+
+export VSCODE_PROFILE_INITIALIZED=1
+unset WASMTIME_HOME
+./sfml-app
+
+export WASMTIME_HOME=/Users/stefano/.wasmtime
+unset XPC_FLAGS
+./sfml-app
+
+export XPC_FLAGS=0x0
+unset XPC_SERVICE_NAME
+./sfml-app
+
+export XPC_SERVICE_NAME=0
+unset ZDOTDIR
+./sfml-app
+
+export ZDOTDIR=/Users/stefano
+unset ZSH
+./sfml-app
+
+export ZSH=/Users/stefano/.oh-my-zsh
+unset __CFBundleIdentifier
+./sfml-app
+
+export __CFBundleIdentifier=com.todesktop.230313mzl4w4u92
+unset __CF_USER_TEXT_ENCODING
+./sfml-app
+
+export __CF_USER_TEXT_ENCODING=0x1F6:0x0:0x2
+
+
