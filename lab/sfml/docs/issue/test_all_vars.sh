@@ -19,3 +19,4 @@ echo "Testing with all variables..."
 eval "env -i $ENV_ARGS ./sfml-app"
 
 
+
