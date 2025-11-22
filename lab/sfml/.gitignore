@@ -1,0 +1,8 @@
+SFML/
+*.o
+*.so*
+*.dylib
+sfml-app
+test
+test-*
+
