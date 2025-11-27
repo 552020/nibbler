@@ -1,0 +1,30 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+mushroom
+mushroom_2
+gdbe
+sfml-app
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# CMake build files
+build/
+CMakeCache.txt
+CMakeFiles/
+
+# Temporary files
+*.tmp
+*.log
+

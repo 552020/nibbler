@@ -35,6 +35,15 @@ $(NAME): $(OBJECTS) $(SFML_INSTALL)
 src/%.o: src/%.cpp $(SFML_INSTALL)
 	$(CC) $(CFLAGS) $(SFML_INC) -c $< -o $@
 
+# Generic rule to build executables from source files in src/
+# Usage: make <filename> (e.g., make gdbe)
+%: src/%.o $(SFML_INSTALL) copy_deps
+	$(CC) $(SOFLAGS) -o $@ $< $(SFML_LIBS)
+
+# Specific rule for mushroom_2: needs Game.cpp and Window.cpp
+mushroom_2: src/mushroom_2.o src/Game.o src/Window.o $(SFML_INSTALL) copy_deps
+	$(CC) $(SOFLAGS) -o $@ src/mushroom_2.o src/Game.o src/Window.o $(SFML_LIBS)
+
 # Build and install SFML (creates both headers and libraries)
 # Note: This target is used in two different contexts:
 #   1. In compilation: ensures header files exist (via SFML_INC pointing to include/)
@@ -46,15 +55,15 @@ $(SFML_INSTALL):
 
 copy_deps:
 ifeq ($(UNAME_S), Darwin)
-	@cp $(SFML_LIBDIR)/libsfml-graphics.3.1.dylib .
-	@cp $(SFML_LIBDIR)/libsfml-window.3.1.dylib .
-	@cp $(SFML_LIBDIR)/libsfml-system.3.1.dylib .
-	@cp $(SFML_LIBDIR)/libsfml-audio.3.1.dylib .
+	cp $(SFML_LIBDIR)/libsfml-graphics.3.1.dylib .
+	cp $(SFML_LIBDIR)/libsfml-window.3.1.dylib .
+	cp $(SFML_LIBDIR)/libsfml-system.3.1.dylib .
+	cp $(SFML_LIBDIR)/libsfml-audio.3.1.dylib .
 else
-	@cp $(SFML_LIBDIR)/libsfml-graphics.so.3.1 .
-	@cp $(SFML_LIBDIR)/libsfml-window.so.3.1 .
-	@cp $(SFML_LIBDIR)/libsfml-system.so.3.1 .
-	@cp $(SFML_LIBDIR)/libsfml-audio.so.3.1 .
+	cp $(SFML_LIBDIR)/libsfml-graphics.so.3.1 .
+	cp $(SFML_LIBDIR)/libsfml-window.so.3.1 .
+	cp $(SFML_LIBDIR)/libsfml-system.so.3.1 .
+	cp $(SFML_LIBDIR)/libsfml-audio.so.3.1 .
 endif
 
 clean:
