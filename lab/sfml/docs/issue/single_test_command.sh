@@ -2,3 +2,4 @@ unset CAML_LD_LIBRARY_PATH && ./sfml-app & sleep 2 && kill %1 2>/dev/null; expor
 
 
 
+
