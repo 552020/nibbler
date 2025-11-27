@@ -21,13 +21,17 @@ public:
     void Render();
 
     Window* GetWindow();
+    sf::Time GetElapsed();
+    void RestartClock();
 
 private:
-    void MoveMushroom();
+    void MoveMushroom(float l_deltaTime);
 
     Window m_window;
     sf::Texture m_mushroomTexture;
     sf::Sprite m_mushroom;
     sf::Vector2i m_increment;
+    sf::Clock m_clock;
+    sf::Time m_elapsed;
 };
 

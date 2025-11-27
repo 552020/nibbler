@@ -23,7 +23,10 @@
 
 ## Best Practices
 
-- Use `window.isOpen()` for loop condition (idiomatic SFML pattern)
+- **CRITICAL: Use `window.isOpen()` for loop condition, NOT `IsDone()` flag**
+  - Using `IsDone()` causes segfault: when window closes, `IsDone()` is set to true, but loop still calls `Render()` on closed window
+  - `IsOpen()` exits loop immediately when window closes, preventing render on closed window
+  - This was a hard-learned lesson - always use `IsOpen()` for main game loop condition
 - Let RAII handle cleanup - don't manually close in destructors unless necessary
 - Initialize members in initializer list when they don't have default constructors
 

@@ -10,7 +10,8 @@ Game::Game()
 , m_mushroomTexture("assets/Mushroom.png")  // SFML 3.x: Texture constructor loads from file
 , m_mushroom(m_mushroomTexture)            // Sprite constructed with loaded texture
 {
-    m_increment = sf::Vector2i(4, 4);
+    // m_increment = sf::Vector2i(4, 4);
+    m_increment = sf::Vector2i(400, 400); // 400px a second.
     
     // Set initial position for mushroom (center of window)
     sf::Vector2u windowSize = m_window.GetWindowSize();
@@ -26,10 +27,16 @@ Game::~Game() {
 
 void Game::Update() {
     m_window.Update(); // Update window events.
-    MoveMushroom();
+    
+    float frametime = 1.0f / 60.0f;
+    if (m_elapsed.asSeconds() >= frametime) {
+        // Do something 60 times a second.
+        MoveMushroom(frametime);
+        m_elapsed -= sf::seconds(frametime); // Subtracting.
+    }
 }
 
-void Game::MoveMushroom() {
+void Game::MoveMushroom(float l_deltaTime) {
     sf::Vector2u l_windSize = m_window.GetWindowSize();
     sf::Vector2u l_textSize = m_mushroomTexture.getSize();
 
@@ -44,8 +51,8 @@ void Game::MoveMushroom() {
     }
 
     m_mushroom.setPosition({
-        m_mushroom.getPosition().x + m_increment.x,
-        m_mushroom.getPosition().y + m_increment.y
+        m_mushroom.getPosition().x + (m_increment.x * l_deltaTime),
+        m_mushroom.getPosition().y + (m_increment.y * l_deltaTime)
     });
 }
 
@@ -61,5 +68,13 @@ void Game::Render() {
 
 Window* Game::GetWindow() {
     return &m_window;
+}
+
+sf::Time Game::GetElapsed() {
+    return m_elapsed;
+}
+
+void Game::RestartClock() {
+    m_elapsed += m_clock.restart();
 }
 
