@@ -2,11 +2,14 @@
 *.o
 *.a
 *.so
+*.so*
 *.dylib
 mushroom
 mushroom_2
 gdbe
 sfml-app
+test
+test-*
 
 # System files
 .DS_Store
@@ -28,3 +31,5 @@ CMakeFiles/
 *.tmp
 *.log
 
+# SFML submodule
+SFML/
