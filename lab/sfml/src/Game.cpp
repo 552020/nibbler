@@ -1,25 +1,10 @@
 #include "Game.hpp"
 
-// SFML 3.x change: Sprite no longer has a default constructor
-// In SFML 2.x: sf::Sprite sprite; sprite.setTexture(texture); (default constructor + setTexture)
-// In SFML 3.x: sf::Sprite sprite(texture); (must construct with texture)
-// Solution: Use sf::Texture constructor that loads from file - clean RAII pattern
-// Game::Game() : m_window("Chapter 2", sf::Vector2u(800, 600)) {
-Game::Game() 
-: m_window("Chapter 2", sf::Vector2u(800, 600))
-, m_mushroomTexture("assets/Mushroom.png")  // SFML 3.x: Texture constructor loads from file
-, m_mushroom(m_mushroomTexture)            // Sprite constructed with loaded texture
+Game::Game()
+: m_window("Snake", sf::Vector2u(800, 600))
+, m_world(sf::Vector2u(800, 600))
+, m_snake(m_world.GetBlockSize())
 {
-    // m_increment = sf::Vector2i(4, 4);
-    m_increment = sf::Vector2i(400, 400); // 400px a second.
-    
-    // Set initial position for mushroom (center of window)
-    sf::Vector2u windowSize = m_window.GetWindowSize();
-    sf::Vector2u textureSize = m_mushroomTexture.getSize();
-    m_mushroom.setPosition({
-        (windowSize.x - textureSize.x) / 2.0f,
-        (windowSize.y - textureSize.y) / 2.0f
-    });
 }
 
 Game::~Game() {
@@ -28,41 +13,36 @@ Game::~Game() {
 void Game::Update() {
     m_window.Update(); // Update window events.
     
-    float frametime = 1.0f / 60.0f;
-    if (m_elapsed.asSeconds() >= frametime) {
-        // Do something 60 times a second.
-        MoveMushroom(frametime);
-        m_elapsed -= sf::seconds(frametime); // Subtracting.
+    float timestep = 1.0f / m_snake.GetSpeed();
+    if (m_elapsed.asSeconds() >= timestep) {
+        m_snake.Tick();
+        m_world.Update(m_snake);
+        m_elapsed -= sf::seconds(timestep);
+        
+        if (m_snake.HasLost()) {
+            m_snake.Reset();
+        }
     }
 }
 
-void Game::MoveMushroom(float l_deltaTime) {
-    sf::Vector2u l_windSize = m_window.GetWindowSize();
-    sf::Vector2u l_textSize = m_mushroomTexture.getSize();
-
-    if ((m_mushroom.getPosition().x > l_windSize.x - l_textSize.x && m_increment.x > 0) ||
-        (m_mushroom.getPosition().x < 0 && m_increment.x < 0)) {
-        m_increment.x = -m_increment.x;
-    }
-
-    if ((m_mushroom.getPosition().y > l_windSize.y - l_textSize.y && m_increment.y > 0) ||
-        (m_mushroom.getPosition().y < 0 && m_increment.y < 0)) {
-        m_increment.y = -m_increment.y;
-    }
-
-    m_mushroom.setPosition({
-        m_mushroom.getPosition().x + (m_increment.x * l_deltaTime),
-        m_mushroom.getPosition().y + (m_increment.y * l_deltaTime)
-    });
-}
 
 void Game::HandleInput() {
-    // Handle input logic here (can be empty for now)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && m_snake.GetDirection() != Direction::Down) {
+        m_snake.SetDirection(Direction::Up);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && m_snake.GetDirection() != Direction::Up) {
+        m_snake.SetDirection(Direction::Down);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && m_snake.GetDirection() != Direction::Right) {
+        m_snake.SetDirection(Direction::Left);
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && m_snake.GetDirection() != Direction::Left) {
+        m_snake.SetDirection(Direction::Right);
+    }
 }
 
 void Game::Render() {
     m_window.BeginDraw();
-    m_window.Draw(m_mushroom);
+    // Render here.
+    m_world.Render(*m_window.GetRenderWindow());
+    m_snake.Render(*m_window.GetRenderWindow());
     m_window.EndDraw();
 }
 
