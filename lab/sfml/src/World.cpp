@@ -1,4 +1,6 @@
 #include "World.hpp"
+#include "TextBox.hpp"
+#include <string>
 
 World::World(sf::Vector2u l_windSize) {
     m_blockSize = 16;
@@ -60,10 +62,11 @@ void World::RespawnApple() {
         m_item.y * m_blockSize));
 }
 
-void World::Update(Snake& l_player) {
+void World::Update(Snake& l_player, Textbox& l_textbox) {
     if (l_player.GetPosition() == m_item) {
         l_player.Extend();
         l_player.IncreaseScore();
+        l_textbox.Add("Apple eaten! Score: " + std::to_string(l_player.GetScore()));
         RespawnApple();
     }
     

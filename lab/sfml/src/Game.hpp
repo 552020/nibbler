@@ -3,6 +3,8 @@
 #include "Window.hpp"
 #include "World.hpp"
 #include "Snake.hpp"
+#include "TextBox.hpp"
+#include "EventManager.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -25,6 +27,7 @@ public:
     Window* GetWindow();
     sf::Time GetElapsed();
     void RestartClock();
+    void MoveSprite(EventDetails* l_details);
 
 private:
     Window m_window;
@@ -32,6 +35,10 @@ private:
     sf::Time m_elapsed;
     World m_world;
     Snake m_snake;
+    Textbox m_textbox;
+    sf::Texture m_texture;
+    sf::Sprite m_sprite;
+    bool m_textureLoaded;
 };
 
 // SFML types used in this file:

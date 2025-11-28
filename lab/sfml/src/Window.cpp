@@ -1,4 +1,5 @@
 #include "Window.hpp"
+#include "EventManager.hpp"
 
 Window::Window() {
     Setup("Window", sf::Vector2u(640, 480));
@@ -18,6 +19,11 @@ void Window::Setup(const std::string& l_title, const sf::Vector2u& l_size) {
     m_windowSize = l_size;
     m_isFullscreen = false;
     m_isDone = false;
+    m_isFocused = true; // Default value for focused flag.
+    m_eventManager.AddCallback("Fullscreen_toggle",
+                               &Window::ToggleFullscreen, this);
+    m_eventManager.AddCallback("Window_close",
+                               &Window::Close, this);
     Create();
 }
 
@@ -39,18 +45,20 @@ void Window::Destroy() {
 }
 
 void Window::Update() {
-    // std::optional: C++17 feature that represents a value that may or may not exist
-    // pollEvent() returns std::optional<Event> - if there's an event, it contains it; if not, it's empty
-    // The event object comes from m_window.pollEvent() which retrieves the next event from the window's event queue
     while (const std::optional event = m_window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
-            m_window.close();  // Close window - loop will exit on next iteration since IsOpen() will return false
-        } else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-            if (keyPressed->code == sf::Keyboard::Key::F5) {
-                ToggleFullscreen();
-            }
+            m_window.close();
+        } else if (event->is<sf::Event::FocusLost>()) {
+            m_isFocused = false;
+            m_eventManager.SetFocus(false);
+        } else if (event->is<sf::Event::FocusGained>()) {
+            m_isFocused = true;
+            m_eventManager.SetFocus(true);
         }
+        sf::Event sfEvent = *event;
+        m_eventManager.HandleEvent(sfEvent);
     }
+    m_eventManager.Update();
 }
 
 void Window::ToggleFullscreen() {
@@ -89,4 +97,22 @@ void Window::Draw(sf::Drawable& l_drawable) {
 
 sf::RenderWindow* Window::GetRenderWindow() {
     return &m_window;
+}
+
+bool Window::IsFocused() {
+    return m_isFocused;
+}
+
+EventManager* Window::GetEventManager() {
+    return &m_eventManager;
+}
+
+void Window::ToggleFullscreen(EventDetails* l_details) {
+    (void)l_details; // Suppress unused parameter warning
+    ToggleFullscreen();
+}
+
+void Window::Close(EventDetails* l_details) {
+    (void)l_details; // Suppress unused parameter warning
+    m_window.close();
 }

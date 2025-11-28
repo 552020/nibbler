@@ -9,7 +9,7 @@ else                            # Linux
 endif
 
 CC      = g++
-CFLAGS  = -std=c++17 -Wall -Wextra -Werror -O2
+CFLAGS  = -std=c++17 -Wall -Wextra -Werror -O2 -g -fsanitize=address -fno-omit-frame-pointer
 
 SOURCES = src/main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -44,10 +44,10 @@ src/%.o: src/%.cpp $(SFML_INSTALL)
 mushroom_2: src/mushroom_2.o src/Game.o src/Window.o $(SFML_INSTALL) copy_deps
 	$(CC) $(SOFLAGS) -o $@ src/mushroom_2.o src/Game.o src/Window.o $(SFML_LIBS)
 
-# Specific rule for snake game: needs Game.cpp, Window.cpp, Snake.cpp, and World.cpp
+# Specific rule for snake game: needs Game.cpp, Window.cpp, Snake.cpp, World.cpp, TextBox.cpp, and EventManager.cpp
 # Using main.cpp as entry point
-snake: src/main.o src/Game.o src/Window.o src/Snake.o src/World.o $(SFML_INSTALL) copy_deps
-	$(CC) $(SOFLAGS) -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o $(SFML_LIBS)
+snake: src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o $(SFML_INSTALL) copy_deps
+	$(CC) $(SOFLAGS) -fsanitize=address -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o $(SFML_LIBS)
 
 # Build and install SFML (creates both headers and libraries)
 # Note: This target is used in two different contexts:

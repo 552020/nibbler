@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.hpp"
 
+class Textbox;
+
 class World {
 public:
     World(sf::Vector2u l_windSize);
@@ -10,7 +12,7 @@ public:
 
     int GetBlockSize();
     void RespawnApple();
-    void Update(Snake& l_player);
+    void Update(Snake& l_player, Textbox& l_textbox);
     void Render(sf::RenderWindow& l_window);
 
 private:
