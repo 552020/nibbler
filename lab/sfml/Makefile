@@ -44,6 +44,11 @@ src/%.o: src/%.cpp $(SFML_INSTALL)
 mushroom_2: src/mushroom_2.o src/Game.o src/Window.o $(SFML_INSTALL) copy_deps
 	$(CC) $(SOFLAGS) -o $@ src/mushroom_2.o src/Game.o src/Window.o $(SFML_LIBS)
 
+# Specific rule for snake game: needs Game.cpp, Window.cpp, Snake.cpp, and World.cpp
+# Using main.cpp as entry point
+snake: src/main.o src/Game.o src/Window.o src/Snake.o src/World.o $(SFML_INSTALL) copy_deps
+	$(CC) $(SOFLAGS) -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o $(SFML_LIBS)
+
 # Build and install SFML (creates both headers and libraries)
 # Note: This target is used in two different contexts:
 #   1. In compilation: ensures header files exist (via SFML_INC pointing to include/)
