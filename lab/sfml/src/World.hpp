@@ -21,3 +21,9 @@ private:
     sf::RectangleShape m_bounds[4];
 };
 
+// SFML types used in this file:
+// - sf::Vector2u: 2D vector with unsigned int components (x, y), used for window sizes
+// - sf::Vector2i: 2D vector with int components (x, y), used for grid positions (apple position)
+// - sf::RenderWindow: Window object used for rendering graphics, passed by reference to Render()
+// - sf::CircleShape: Circle shape used for rendering the apple (m_appleShape)
+// - sf::RectangleShape: Rectangle shape used for rendering boundary walls (m_bounds)

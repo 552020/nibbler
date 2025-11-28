@@ -34,3 +34,6 @@ private:
     Snake m_snake;
 };
 
+// SFML types used in this file:
+// - sf::Time: Time duration type, used for elapsed time tracking (m_elapsed) and return type of GetElapsed()
+// - sf::Clock: Clock object used for measuring elapsed time (m_clock)

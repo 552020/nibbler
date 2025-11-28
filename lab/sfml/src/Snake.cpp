@@ -1,9 +1,5 @@
 #include "Snake.hpp"
 
-// Missing function implementations:
-// - Move()
-// - Tick()
-// - CheckCollision() (private)
 
 Snake::Snake(int l_blockSize) {
     m_size = l_blockSize;
@@ -129,6 +125,49 @@ void Snake::Cut(int l_segments) {
     }
 }
 
+void Snake::Move() {
+    for (int i = m_snakeBody.size() - 1; i > 0; --i) {
+        m_snakeBody[i].position = m_snakeBody[i - 1].position;
+    }
+    
+    if (m_dir == Direction::Left) {
+        --m_snakeBody[0].position.x;
+    } else if (m_dir == Direction::Right) {
+        ++m_snakeBody[0].position.x;
+    } else if (m_dir == Direction::Up) {
+        --m_snakeBody[0].position.y;
+    } else if (m_dir == Direction::Down) {
+        ++m_snakeBody[0].position.y;
+    }
+}
+
+void Snake::Tick() {
+    if (m_snakeBody.empty()) {
+        return;
+    }
+    if (m_dir == Direction::None) {
+        return;
+    }
+    Move();
+    CheckCollision();
+}
+
+void Snake::CheckCollision() {
+    if (m_snakeBody.size() < 5) {
+        return;
+    }
+    
+    SnakeSegment& head = m_snakeBody.front();
+    
+    for (auto itr = m_snakeBody.begin() + 1; itr != m_snakeBody.end(); ++itr) {
+        if (itr->position == head.position) {
+            int segments = m_snakeBody.end() - itr;
+            Cut(segments);
+            break;
+        }
+    }
+}
+
 void Snake::Render(sf::RenderWindow& l_window) {
     if (m_snakeBody.empty()) {
         return;
@@ -136,12 +175,12 @@ void Snake::Render(sf::RenderWindow& l_window) {
     
     auto head = m_snakeBody.begin();
     m_bodyRect.setFillColor(sf::Color::Yellow);
-    m_bodyRect.setPosition(head->position.x * m_size, head->position.y * m_size);
+    m_bodyRect.setPosition(sf::Vector2f(head->position.x * m_size, head->position.y * m_size));
     l_window.draw(m_bodyRect);
     
     m_bodyRect.setFillColor(sf::Color::Green);
     for (auto itr = m_snakeBody.begin() + 1; itr != m_snakeBody.end(); ++itr) {
-        m_bodyRect.setPosition(itr->position.x * m_size, itr->position.y * m_size);
+        m_bodyRect.setPosition(sf::Vector2f(itr->position.x * m_size, itr->position.y * m_size));
         l_window.draw(m_bodyRect);
     }
 }

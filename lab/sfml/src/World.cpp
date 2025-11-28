@@ -16,7 +16,7 @@ World::World(sf::Vector2u l_windSize) {
         }
         
         if (i < 2) {
-            m_bounds[i].setPosition(0, 0);
+            m_bounds[i].setPosition(sf::Vector2f(0, 0));
         } else {
             m_bounds[i].setOrigin(m_bounds[i].getSize());
             m_bounds[i].setPosition(sf::Vector2f(m_windowSize));
@@ -55,9 +55,9 @@ void World::RespawnApple() {
     int maxY = (m_windowSize.y / m_blockSize) - 2;
     m_item = sf::Vector2i(
         rand() % maxX + 1, rand() % maxY + 1);
-    m_appleShape.setPosition(
+    m_appleShape.setPosition(sf::Vector2f(
         m_item.x * m_blockSize,
-        m_item.y * m_blockSize);
+        m_item.y * m_blockSize));
 }
 
 void World::Update(Snake& l_player) {
@@ -89,3 +89,20 @@ int World::GetBlockSize() {
     return m_blockSize;
 }
 
+// SFML types and functions used in this file:
+// - sf::Vector2u: 2D vector with unsigned int components (x, y), used for window sizes
+// - sf::Vector2i: 2D vector with int components (x, y), used for grid positions (apple position)
+// - sf::Vector2f: 2D vector with float components (x, y), used for sizes and positions in pixel coordinates
+// - sf::RenderWindow: Window object used for rendering graphics, passed by reference to Render()
+//   - draw(): Method to draw drawable objects (like sf::CircleShape, sf::RectangleShape) to the window
+// - sf::CircleShape: Circle shape used for rendering the apple (m_appleShape)
+//   - setFillColor(): Method to set the fill color of the shape
+//   - setRadius(): Method to set the radius of the circle
+//   - setPosition(): Method to set the position of the shape in pixel coordinates
+// - sf::RectangleShape: Rectangle shape used for rendering boundary walls (m_bounds)
+//   - setFillColor(): Method to set the fill color of the shape
+//   - setSize(): Method to set the size of the rectangle
+//   - setPosition(): Method to set the position of the shape in pixel coordinates
+//   - setOrigin(): Method to set the origin point of the shape (used for positioning from corners)
+//   - getSize(): Method to get the size of the rectangle
+// - sf::Color: Color class for setting fill colors (Red for apple, dark red for walls)

@@ -58,3 +58,13 @@ void Game::RestartClock() {
     m_elapsed += m_clock.restart();
 }
 
+// SFML types and functions used in this file:
+// - sf::Vector2u: 2D vector with unsigned int components (x, y), used for window size initialization
+// - sf::Time: Time duration type, used for elapsed time tracking
+//   - asSeconds(): Method to convert time to seconds (float)
+// - sf::Clock: Clock object used for measuring elapsed time
+//   - restart(): Method to restart the clock and return elapsed time since last restart
+// - sf::seconds(): Function to create sf::Time from seconds (float)
+// - sf::Keyboard: Keyboard input handling class
+//   - isKeyPressed(): Method to check if a key is currently pressed
+//   - Key: Enum class for keyboard keys (Up, Down, Left, Right)
