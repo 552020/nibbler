@@ -12,8 +12,7 @@ int main() {
         game.HandleInput();
         game.Update();
         game.Render();
-        sf::sleep(sf::seconds(0.016)); // Sleep for ~16ms (60 FPS).
-        game.RestartClock(); // Restarting our clock.
+        game.LateUpdate(); // Process state removal requests and restart clock
     }
     return 0;
 }

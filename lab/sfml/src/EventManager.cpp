@@ -1,9 +1,10 @@
 #include "EventManager.hpp"
+#include "StateManager.hpp"  // For StateType definition
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
-EventManager::EventManager() : m_hasFocus(true) {
+EventManager::EventManager() : m_hasFocus(true), m_currentState(StateType::Game) {
     LoadBindings();
 }
 
@@ -33,6 +34,10 @@ bool EventManager::RemoveBinding(std::string l_name) {
 
 void EventManager::SetFocus(const bool& l_focus) {
     m_hasFocus = l_focus;
+}
+
+void EventManager::SetCurrentState(StateType l_state) {
+    m_currentState = l_state;
 }
 
 /// @brief Handles incoming SFML events and matches them to registered bindings.
@@ -177,7 +182,7 @@ void EventManager::Update() {
                 case(EventType::Mouse):
                     if (sf::Mouse::isButtonPressed(
                         sf::Mouse::Button(e_itr.second.m_code))) {
-                        std::cout << "Mouse button " << e_itr.second.m_code << " is currently pressed (continuous check)" << std::endl;
+                        // std::cout << "Mouse button " << e_itr.second.m_code << " is currently pressed (continuous check)" << std::endl;
                         if (bind->m_details.m_keyCode != -1) {
                             bind->m_details.m_keyCode = e_itr.second.m_code;
                         }
@@ -194,11 +199,23 @@ void EventManager::Update() {
         }
         if (static_cast<int>(bind->m_events.size()) == bind->c) {
             std::cout << "Binding '" << bind->m_name << "' triggered! All " << bind->c << " events matched." << std::endl;
-            auto callItr = m_callbacks.find(bind->m_name);
-            if (callItr != m_callbacks.end()) {
-                callItr->second(&bind->m_details);
-            } else {
-                std::cout << "Warning: No callback found for binding '" << bind->m_name << "'" << std::endl;
+            
+            // Check callbacks for current state
+            auto stateCallbacks = m_callbacks.find(m_currentState);
+            if (stateCallbacks != m_callbacks.end()) {
+                auto callItr = stateCallbacks->second.find(bind->m_name);
+                if (callItr != stateCallbacks->second.end()) {
+                    callItr->second(&bind->m_details);
+                }
+            }
+            
+            // Check global callbacks (StateType(0) - always active regardless of state)
+            auto otherCallbacks = m_callbacks.find(StateType(0));
+            if (otherCallbacks != m_callbacks.end()) {
+                auto callItr = otherCallbacks->second.find(bind->m_name);
+                if (callItr != otherCallbacks->second.end()) {
+                    callItr->second(&bind->m_details);
+                }
             }
         }
         bind->c = 0;

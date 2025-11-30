@@ -5,6 +5,7 @@
 #include "Snake.hpp"
 #include "TextBox.hpp"
 #include "EventManager.hpp"
+#include "StateManager.hpp"
 #include <SFML/Graphics.hpp>
 
 class Game {
@@ -28,6 +29,7 @@ public:
     sf::Time GetElapsed();
     void RestartClock();
     void MoveSprite(EventDetails* l_details);
+    void LateUpdate();
 
 private:
     Window m_window;
@@ -39,6 +41,8 @@ private:
     sf::Texture m_texture;
     sf::Sprite m_sprite;
     bool m_textureLoaded;
+    SharedContext m_context;
+    StateManager m_stateManager;
 };
 
 // SFML types used in this file:

@@ -20,6 +20,10 @@
 - **Rendering on closed window**: Always use `window.isOpen()` as loop condition, not a separate flag
 - **Destruction order**: Members destroyed in reverse declaration order
 - **Texture lifetime**: Sprite must outlive texture (or texture must outlive sprite)
+- **Sprite with empty texture**: If sprite is constructed with empty texture in initializer list, then texture is loaded later, the sprite will have 0x0 bounds and won't render
+  - **Solution**: After loading texture, call `sprite.setTexture(texture, true)` with `resetRect=true` to update sprite bounds
+  - **Better solution**: Load texture before constructing sprite, or use texture constructor that loads from file
+  - This was encountered with both mushroom sprite and intro sprite - same pattern, same fix
 
 ## Best Practices
 

@@ -5,11 +5,19 @@
 #include <cerrno>
 
 Game::Game()
-: m_window("Snake", sf::Vector2u(800, 600))
+: m_window("Chapter 5", sf::Vector2u(800, 600))
 , m_world(sf::Vector2u(800, 600))
 , m_snake(m_world.GetBlockSize())
 , m_sprite(m_texture)
+, m_stateManager(&m_context)
 {
+    // Initialize shared context
+    m_context.m_wind = &m_window;
+    m_context.m_eventManager = m_window.GetEventManager();
+    
+    // Start with intro state
+    m_stateManager.SwitchTo(StateType::Intro);
+    
     m_textbox.Setup(5, 14, 350, sf::Vector2f(225, 0));
     m_textbox.Add("Seeded random number generator with: " + std::to_string(time(NULL)));
     
@@ -33,7 +41,8 @@ Game::Game()
                   << ") size: " << bounds.size.x << "x" << bounds.size.y << std::endl;
     }
     
-    m_window.GetEventManager()->AddCallback("Move",
+    // Global callback (StateType(0)) - active regardless of current state
+    m_window.GetEventManager()->AddCallback(StateType(0), "Move",
                                             &Game::MoveSprite, this);
 }
 
@@ -41,19 +50,8 @@ Game::~Game() {
 }
 
 void Game::Update() {
-    m_window.Update(); // Update window events.
-    
-    float timestep = 1.0f / m_snake.GetSpeed();
-    if (m_elapsed.asSeconds() >= timestep) {
-        m_snake.Tick();
-        m_world.Update(m_snake, m_textbox);
-        m_elapsed -= sf::seconds(timestep);
-        
-        if (m_snake.HasLost()) {
-            m_textbox.Add("Game Over! Final Score: " + std::to_string(m_snake.GetScore()));
-            m_snake.Reset();
-        }
-    }
+    m_window.Update();
+    m_stateManager.Update(m_elapsed);
 }
 
 
@@ -71,27 +69,7 @@ void Game::HandleInput() {
 
 void Game::Render() {
     m_window.BeginDraw();
-    // Render here.
-    m_world.Render(*m_window.GetRenderWindow());
-    m_snake.Render(*m_window.GetRenderWindow());
-    if (m_textureLoaded) {
-        m_window.GetRenderWindow()->draw(m_sprite);
-        // Debug: Print sprite position every 60 frames (roughly once per second at 60 FPS)
-        static int frameCount = 0;
-        if (++frameCount % 60 == 0) {
-            sf::Vector2f pos = m_sprite.getPosition();
-            sf::FloatRect bounds = m_sprite.getGlobalBounds();
-            std::cout << "Rendering mushroom at (" << pos.x << ", " << pos.y 
-                      << ") bounds: (" << bounds.position.x << ", " << bounds.position.y 
-                      << ") " << bounds.size.x << "x" << bounds.size.y << std::endl;
-        }
-    } else {
-        static int frameCount = 0;
-        if (++frameCount % 3600 == 0) { // Every 60 seconds
-            std::cout << "Warning: Mushroom texture not loaded, sprite not rendered." << std::endl;
-        }
-    }
-    m_textbox.Render(*m_window.GetRenderWindow());
+    m_stateManager.Draw();
     m_window.EndDraw();
 }
 
@@ -105,6 +83,11 @@ sf::Time Game::GetElapsed() {
 
 void Game::RestartClock() {
     m_elapsed += m_clock.restart();
+}
+
+void Game::LateUpdate() {
+    m_stateManager.ProcessRequests();
+    RestartClock();
 }
 
 void Game::MoveSprite(EventDetails* l_details) {

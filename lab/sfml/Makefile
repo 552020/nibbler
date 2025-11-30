@@ -1,10 +1,10 @@
 UNAME_S := $(shell uname)
 
 ifeq ($(UNAME_S),Darwin)        # macOS
-    NAME     = sfml-app
+    NAME     = snake
     SOFLAGS  = -Wl,-rpath,@loader_path
 else                            # Linux
-    NAME     = sfml-app
+    NAME     = snake
     SOFLAGS  = -Wl,-rpath,'$$ORIGIN'
 endif
 
@@ -25,10 +25,10 @@ SFML_CMAKE_FLAGS = -DSFML_BUILD_EXAMPLES=OFF -DSFML_BUILD_DOC=OFF -DCMAKE_BUILD_
 
 all: $(NAME) copy_deps
 
-# Linking step: $(SFML_INSTALL) dependency ensures SFML library files are available
+# Linking step for snake game: needs all object files
 # Purpose: Provides library files (.so/.dylib) needed to link the executable
-$(NAME): $(OBJECTS) $(SFML_INSTALL)
-	$(CC) $(SOFLAGS) -o $@ $(OBJECTS) $(SFML_LIBS)
+$(NAME): src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o $(SFML_INSTALL)
+	$(CC) $(SOFLAGS) -fsanitize=address -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o $(SFML_LIBS)
 
 # Compilation step: $(SFML_INSTALL) dependency ensures SFML header files are available
 # Purpose: Provides header files needed to compile source files
@@ -40,14 +40,9 @@ src/%.o: src/%.cpp $(SFML_INSTALL)
 %: src/%.o $(SFML_INSTALL) copy_deps
 	$(CC) $(SOFLAGS) -o $@ $< $(SFML_LIBS)
 
-# Specific rule for mushroom_2: needs Game.cpp and Window.cpp
-mushroom_2: src/mushroom_2.o src/Game.o src/Window.o $(SFML_INSTALL) copy_deps
-	$(CC) $(SOFLAGS) -o $@ src/mushroom_2.o src/Game.o src/Window.o $(SFML_LIBS)
-
-# Specific rule for snake game: needs Game.cpp, Window.cpp, Snake.cpp, World.cpp, TextBox.cpp, and EventManager.cpp
-# Using main.cpp as entry point
-snake: src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o $(SFML_INSTALL) copy_deps
-	$(CC) $(SOFLAGS) -fsanitize=address -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o $(SFML_LIBS)
+# snake target is now the default (via $(NAME))
+# Keeping this for explicit reference
+snake: $(NAME)
 
 # Build and install SFML (creates both headers and libraries)
 # Note: This target is used in two different contexts:
@@ -75,7 +70,7 @@ clean:
 	$(RM) $(OBJECTS) src/*.o
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) snake
 	$(RM) -rf $(SFML_DIR)
 	$(RM) -f *.dylib *.so*
 

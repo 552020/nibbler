@@ -1,5 +1,6 @@
 #include "Window.hpp"
 #include "EventManager.hpp"
+#include "StateManager.hpp"  // For StateType definition
 
 Window::Window() {
     Setup("Window", sf::Vector2u(640, 480));
@@ -20,10 +21,11 @@ void Window::Setup(const std::string& l_title, const sf::Vector2u& l_size) {
     m_isFullscreen = false;
     m_isDone = false;
     m_isFocused = true; // Default value for focused flag.
-    m_eventManager.AddCallback("Fullscreen_toggle",
-                               &Window::ToggleFullscreen, this);
-    m_eventManager.AddCallback("Window_close",
-                               &Window::Close, this);
+    // Global callbacks (StateType(0)) - active regardless of current state
+    m_eventManager.AddCallback(StateType(0), "Fullscreen_toggle",
+                                &Window::ToggleFullscreen, this);
+    m_eventManager.AddCallback(StateType(0), "Window_close",
+                                &Window::Close, this);
     Create();
 }
 
