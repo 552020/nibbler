@@ -11,6 +11,8 @@ Game::Game()
 , m_sprite(m_texture)
 , m_stateManager(&m_context)
 {
+    m_clock.restart();
+    
     // Initialize shared context
     m_context.m_wind = &m_window;
     m_context.m_eventManager = m_window.GetEventManager();
@@ -51,11 +53,7 @@ Game::~Game() {
 
 void Game::Update() {
     m_window.Update();
-    // NOTE: Tutorial bug - tutorial shows m_stateManager.Update(m_elapsed) but m_elapsed
-    // is accumulated time (keeps growing), not delta time. We need time since last restart.
-    // Use restart() to get delta time for this frame AND reset clock for next frame
-    sf::Time deltaTime = m_clock.restart();
-    m_stateManager.Update(deltaTime);
+    m_stateManager.Update(m_elapsed);
 }
 
 
@@ -82,17 +80,16 @@ Window* Game::GetWindow() {
 }
 
 sf::Time Game::GetElapsed() {
-    return m_elapsed;
+    return m_clock.getElapsedTime();
 }
 
 void Game::RestartClock() {
-    m_elapsed += m_clock.restart();
+    m_elapsed = m_clock.restart();
 }
 
 void Game::LateUpdate() {
     m_stateManager.ProcessRequests();
-    // Clock is now restarted in Update(), so we don't need to restart here
-    // RestartClock(); // Commented out - clock restarted in Update() now
+    RestartClock();
 }
 
 void Game::MoveSprite(EventDetails* l_details) {

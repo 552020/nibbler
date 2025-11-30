@@ -206,9 +206,10 @@ SFML time: 6.00223s, Real time: 5.789s, Delta: 0.001032s
 ## Todo
 
 - [x] Fix `Game::Update()` to pass delta time instead of accumulated time
-- [ ] Verify timing is now correct (5 seconds should be accurate)
+- [x] Fix `Game::Update()` to use `clock.restart()` instead of `getElapsedTime()`
+- [x] Verify timing is now correct (5 seconds should be accurate) - ✅ Verified with chrono timing
+- [x] Add timing verification using chrono (static variables to avoid AddressSanitizer issues)
 - [ ] Fix sprite starting position to be above screen (if still needed after timing fix)
 - [ ] Test that text only appears after 5 seconds
 - [ ] Test that spacebar only works after 5 seconds
-- [ ] Investigate chrono timing verification approach (if still needed)
 

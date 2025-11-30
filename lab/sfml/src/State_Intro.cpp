@@ -13,10 +13,14 @@ State_Intro::~State_Intro() {
 }
 
 void State_Intro::OnCreate() {
+    // Initialize time tracking
     m_timePassed = 0.0f;
+    
+    // Get window size for positioning
     sf::Vector2u windowSize = m_stateMgr->GetContext()->
         m_wind->GetRenderWindow()->getSize();
 
+    // Load and setup intro sprite
     if (!m_introTexture.loadFromFile("assets/intro.png")) {
         std::cerr << "Error: Failed to load texture from assets/intro.png" << std::endl;
     } else {
@@ -36,6 +40,7 @@ void State_Intro::OnCreate() {
                   << ") size: " << bounds.size.x << "x" << bounds.size.y << std::endl;
     }
 
+    // Load and setup text
     if (!m_font.openFromFile("assets/arial/ARIAL.TTF")) {
         std::cerr << "Error: Failed to load font from assets/arial/ARIAL.TTF" << std::endl;
     }
@@ -47,6 +52,8 @@ void State_Intro::OnCreate() {
         textRect.position.y + textRect.size.y / 2.0f));
     m_text.setPosition(sf::Vector2f(windowSize.x / 2.0f, windowSize.y / 2.0f));
 
+    // Bind Spacebar key to Continue method
+    // Get event manager through shared context and register callback with state type
     EventManager* evMgr = m_stateMgr->
         GetContext()->m_eventManager;
     evMgr->AddCallback(StateType::Intro, "Intro_Continue",
