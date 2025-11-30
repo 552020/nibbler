@@ -2,9 +2,11 @@
 #include "StateManager.hpp"
 #include "Window.hpp"
 #include <iostream>
+#include <chrono> // For timing verification (using static variable, not member)
 
 State_Intro::State_Intro(StateManager* l_stateManager)
-    : BaseState(l_stateManager), m_introSprite(m_introTexture), m_text(m_font), m_timePassed(0.0f) {
+    : BaseState(l_stateManager), m_introSprite(m_introTexture), m_text(m_font), 
+      m_timePassed(0.0f) /*, m_startTime() */ { // COMMENTED OUT: m_startTime initialization
 }
 
 State_Intro::~State_Intro() {
@@ -64,12 +66,45 @@ void State_Intro::Deactivate() {
 }
 
 void State_Intro::Update(const sf::Time& l_time) {
-    if (m_timePassed < 5.0f) { // Less than five seconds.
-        m_timePassed += l_time.asSeconds();
+    m_timePassed += l_time.asSeconds();
+    
+    // COMMENTED OUT: Timing verification with chrono member variable - caused AddressSanitizer heap buffer overflow
+    // Verify timing with real clock (for debugging)
+    // auto now = std::chrono::steady_clock::now();
+    // auto realElapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - m_startTime).count() / 1000.0f;
+    // 
+    // // Log comparison every second
+    // static float lastLogTime = 0.0f;
+    // if (m_timePassed - lastLogTime >= 1.0f) {
+    //     std::cout << "SFML time: " << m_timePassed << "s, Real time: " << realElapsed 
+    //               << "s, Delta: " << l_time.asSeconds() << "s" << std::endl;
+    //     lastLogTime = m_timePassed;
+    // }
+    
+    // Simple timing verification using static variable (doesn't change class layout)
+    static bool firstCall = true;
+    static std::chrono::steady_clock::time_point startTime;
+    if (firstCall) {
+        startTime = std::chrono::steady_clock::now();
+        firstCall = false;
+    }
+    
+    // Log comparison every second
+    static float lastLogTime = 0.0f;
+    if (m_timePassed - lastLogTime >= 1.0f) {
+        auto now = std::chrono::steady_clock::now();
+        auto realElapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - startTime).count() / 1000.0f;
+        std::cout << "SFML time: " << m_timePassed << "s, Real time: " << realElapsed 
+                  << "s, Delta: " << l_time.asSeconds() << "s" << std::endl;
+        lastLogTime = m_timePassed;
+    }
+    
+    if (m_timePassed < 5.0f) { // Less than five seconds - sprite animates down
         sf::Vector2f currentPos = m_introSprite.getPosition();
         m_introSprite.setPosition(sf::Vector2f(currentPos.x,
             currentPos.y + (48 * l_time.asSeconds())));
     }
+    // After 5 seconds, sprite stops moving and text becomes available
 }
 
 void State_Intro::Draw() {

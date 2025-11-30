@@ -3,6 +3,7 @@
 #include "BaseState.hpp"
 #include "EventManager.hpp"
 #include <SFML/Graphics.hpp>
+// #include <chrono> // COMMENTED OUT: Caused AddressSanitizer heap buffer overflow
 
 class State_Intro : public BaseState {
 public:
@@ -24,6 +25,7 @@ private:
     sf::Font m_font;
     sf::Text m_text;
     float m_timePassed;
+    // std::chrono::steady_clock::time_point m_startTime; // COMMENTED OUT: For timing verification - caused AddressSanitizer heap buffer overflow
 };
 
 // SFML types used in this file:
