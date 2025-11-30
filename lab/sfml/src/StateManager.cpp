@@ -1,6 +1,9 @@
 #include "StateManager.hpp"
 #include "Window.hpp"
 #include "State_Intro.hpp"
+#include "State_MainMenu.hpp"
+#include "State_Game.hpp"
+#include "State_Paused.hpp"
 #include <algorithm>
 
 // NOTE: RegisterState template implementation is in the header file (StateManager.hpp)
@@ -12,9 +15,9 @@ StateManager::StateManager(SharedContext* l_shared)
 {
     // State registration
     RegisterState<State_Intro>(StateType::Intro);
-    // RegisterState<State_MainMenu>(StateType::MainMenu);
-    // RegisterState<State_Game>(StateType::Game);
-    // RegisterState<State_Paused>(StateType::Paused);
+    RegisterState<State_MainMenu>(StateType::MainMenu);
+    RegisterState<State_Game>(StateType::Game);
+    RegisterState<State_Paused>(StateType::Paused);
 }
 
 StateManager::~StateManager() {

@@ -73,7 +73,7 @@ void State_Intro::Deactivate() {
 }
 
 void State_Intro::Update(const sf::Time& l_time) {
-    m_timePassed += l_time.asSeconds();
+        m_timePassed += l_time.asSeconds();
     
     // COMMENTED OUT: Timing verification with chrono member variable - caused AddressSanitizer heap buffer overflow
     // Verify timing with real clock (for debugging)

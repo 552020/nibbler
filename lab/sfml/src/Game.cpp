@@ -17,8 +17,10 @@ Game::Game()
     m_context.m_wind = &m_window;
     m_context.m_eventManager = m_window.GetEventManager();
     
+    // Start with game state (for testing)
     // Start with intro state
     m_stateManager.SwitchTo(StateType::Intro);
+    // m_stateManager.SwitchTo(StateType::Game);
     
     m_textbox.Setup(5, 14, 350, sf::Vector2f(225, 0));
     m_textbox.Add("Seeded random number generator with: " + std::to_string(time(NULL)));
