@@ -3,3 +3,17 @@
 # System files
 .DS_Store
 *.DS_Store
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+snake
+lab/sfml/snake
+lab/snake/snake
+
+# Cache directories
+.cache/
+lab/sfml/.cache/
+lab/snake/.cache/

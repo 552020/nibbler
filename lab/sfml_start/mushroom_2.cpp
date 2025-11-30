@@ -1,0 +1,19 @@
+#include "Game.hpp"
+
+int main() {
+    // Program entry point.
+    Game game; // Creating our game object.
+    
+    // CRITICAL: Use IsOpen() NOT IsDone() - IsDone() causes segfault because
+    // when window closes, IsDone() is set to true but loop still calls Render() on closed window.
+    // IsOpen() exits loop immediately when window closes, preventing render on closed window.
+    while (game.GetWindow()->IsOpen()) {
+        // Game loop.
+        game.HandleInput();
+        game.Update();
+        game.Render();
+        sf::sleep(sf::seconds(0.016)); // Sleep for ~16ms (60 FPS).
+        game.RestartClock(); // Restarting our clock.
+    }
+}
+
