@@ -9,7 +9,8 @@ int main() {
     // IsOpen() exits loop immediately when window closes, preventing render on closed window.
     while (game.GetWindow()->IsOpen()) {
         // Game loop.
-        game.HandleInput();
+        // COMMENTED OUT: HandleInput - input is now handled by states via EventManager
+        // game.HandleInput();
         game.Update();
         game.Render();
         game.LateUpdate(); // Process state removal requests and restart clock

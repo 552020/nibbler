@@ -21,26 +21,29 @@ public:
     Game(Game&&) = delete;
     Game& operator=(Game&&) = delete;
 
-    void HandleInput();
+    // COMMENTED OUT: HandleInput - will be moved to State_Game using EventManager
+    // void HandleInput();
     void Update();
     void Render();
 
     Window* GetWindow();
     sf::Time GetElapsed();
     void RestartClock();
-    void MoveSprite(EventDetails* l_details);
+    // COMMENTED OUT: MoveSprite - will be in State_Mushroom
+    // void MoveSprite(EventDetails* l_details);
     void LateUpdate();
 
 private:
     Window m_window;
     sf::Clock m_clock;
     sf::Time m_elapsed;
-    World m_world;
-    Snake m_snake;
-    Textbox m_textbox;
-    sf::Texture m_texture;
-    sf::Sprite m_sprite;
-    bool m_textureLoaded;
+    // COMMENTED OUT: These will be moved to their respective states
+    // World m_world;        // Will be in State_Game
+    // Snake m_snake;        // Will be in State_Game
+    // Textbox m_textbox;    // May be used in State_Game or removed
+    // sf::Texture m_texture;    // Will be in State_Mushroom
+    // sf::Sprite m_sprite;     // Will be in State_Mushroom
+    // bool m_textureLoaded;     // Will be in State_Mushroom
     SharedContext m_context;
     StateManager m_stateManager;
 };

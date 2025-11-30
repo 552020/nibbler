@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.hpp"
 
+enum class Direction;
+
 class Textbox;
 
 class World {
@@ -13,6 +15,7 @@ public:
     int GetBlockSize();
     void RespawnApple();
     void Update(Snake& l_player, Textbox& l_textbox);
+    bool WouldHitWall(const sf::Vector2i& l_position, Direction l_dir);
     void Render(sf::RenderWindow& l_window);
 
 private:

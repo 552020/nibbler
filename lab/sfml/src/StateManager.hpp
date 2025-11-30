@@ -17,6 +17,7 @@ enum class StateType {
     Intro = 1,
     MainMenu,
     Game,
+    Mushroom,
     Paused,
     GameOver,
     Credits

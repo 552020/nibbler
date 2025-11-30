@@ -1,6 +1,7 @@
 #include "World.hpp"
 #include "TextBox.hpp"
 #include <string>
+#include <iostream>
 
 World::World(sf::Vector2u l_windSize) {
     m_blockSize = 16;
@@ -62,6 +63,32 @@ void World::RespawnApple() {
         m_item.y * m_blockSize));
 }
 
+bool World::WouldHitWall(const sf::Vector2i& l_position, Direction l_dir) {
+    int gridSize_x = m_windowSize.x / m_blockSize;
+    int gridSize_y = m_windowSize.y / m_blockSize;
+    
+    sf::Vector2i nextPos = l_position;
+    
+    // Calculate next position based on direction
+    if (l_dir == Direction::Left) {
+        nextPos.x--;
+    } else if (l_dir == Direction::Right) {
+        nextPos.x++;
+    } else if (l_dir == Direction::Up) {
+        nextPos.y--;
+    } else if (l_dir == Direction::Down) {
+        nextPos.y++;
+    } else {
+        return false; // No direction, no movement
+    }
+    
+    // Check if next position would hit wall
+    return (nextPos.x <= 0 ||
+            nextPos.y <= 0 ||
+            nextPos.x >= gridSize_x - 1 ||
+            nextPos.y >= gridSize_y - 1);
+}
+
 void World::Update(Snake& l_player, Textbox& l_textbox) {
     if (l_player.GetPosition() == m_item) {
         l_player.Extend();
@@ -73,10 +100,15 @@ void World::Update(Snake& l_player, Textbox& l_textbox) {
     int gridSize_x = m_windowSize.x / m_blockSize;
     int gridSize_y = m_windowSize.y / m_blockSize;
     
-    if (l_player.GetPosition().x <= 0 ||
-        l_player.GetPosition().y <= 0 ||
-        l_player.GetPosition().x >= gridSize_x - 1 ||
-        l_player.GetPosition().y >= gridSize_y - 1) {
+    sf::Vector2i pos = l_player.GetPosition();
+    
+    // Check for wall collision (after movement has occurred)
+    if (pos.x <= 0 ||
+        pos.y <= 0 ||
+        pos.x >= gridSize_x - 1 ||
+        pos.y >= gridSize_y - 1) {
+        std::cout << "WALL COLLISION! Snake at (" << pos.x << ", " << pos.y 
+                  << ") hit wall. Grid bounds: (" << gridSize_x << ", " << gridSize_y << ")" << std::endl;
         l_player.Lose();
     }
 }

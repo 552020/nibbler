@@ -42,6 +42,7 @@ public:
     void Tick(); // Update method.
     void Cut(int l_segments); // Method for cutting snake.
     void Render(sf::RenderWindow& l_window);
+    void Render(sf::RenderWindow& l_window, bool l_invertColors); // Render with optional color inversion
 
 private:
     void CheckCollision(); // Checking for collisions.

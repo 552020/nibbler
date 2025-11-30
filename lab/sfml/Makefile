@@ -27,8 +27,8 @@ all: $(NAME) copy_deps
 
 # Linking step for snake game: needs all object files
 # Purpose: Provides library files (.so/.dylib) needed to link the executable
-$(NAME): src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o src/State_MainMenu.o src/State_Game.o src/State_Paused.o $(SFML_INSTALL)
-	$(CC) $(SOFLAGS) -fsanitize=address -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o src/State_MainMenu.o src/State_Game.o src/State_Paused.o $(SFML_LIBS)
+$(NAME): src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o src/State_MainMenu.o src/State_Game.o src/State_Mushroom.o src/State_Paused.o $(SFML_INSTALL)
+	$(CC) $(SOFLAGS) -fsanitize=address -o $@ src/main.o src/Game.o src/Window.o src/Snake.o src/World.o src/TextBox.o src/EventManager.o src/BaseState.o src/StateManager.o src/State_Intro.o src/State_MainMenu.o src/State_Game.o src/State_Mushroom.o src/State_Paused.o $(SFML_LIBS)
 
 # Compilation step: $(SFML_INSTALL) dependency ensures SFML header files are available
 # Purpose: Provides header files needed to compile source files

@@ -3,6 +3,7 @@
 #include "State_Intro.hpp"
 #include "State_MainMenu.hpp"
 #include "State_Game.hpp"
+#include "State_Mushroom.hpp"
 #include "State_Paused.hpp"
 #include <algorithm>
 
@@ -17,6 +18,7 @@ StateManager::StateManager(SharedContext* l_shared)
     RegisterState<State_Intro>(StateType::Intro);
     RegisterState<State_MainMenu>(StateType::MainMenu);
     RegisterState<State_Game>(StateType::Game);
+    RegisterState<State_Mushroom>(StateType::Mushroom);
     RegisterState<State_Paused>(StateType::Paused);
 }
 

@@ -167,6 +167,10 @@ void Snake::Tick() {
     if (m_dir == Direction::None) {
         return;
     }
+    if (m_lost) {
+        // Snake has lost, stop moving
+        return;
+    }
     Move();
     CheckCollision();
 }
@@ -188,16 +192,24 @@ void Snake::CheckCollision() {
 }
 
 void Snake::Render(sf::RenderWindow& l_window) {
+    Render(l_window, false);
+}
+
+void Snake::Render(sf::RenderWindow& l_window, bool l_invertColors) {
     if (m_snakeBody.empty()) {
         return;
     }
     
+    // Choose colors based on inversion flag
+    sf::Color headColor = l_invertColors ? sf::Color::Green : sf::Color::Yellow;
+    sf::Color bodyColor = l_invertColors ? sf::Color::Yellow : sf::Color::Green;
+    
     auto head = m_snakeBody.begin();
-    m_bodyRect.setFillColor(sf::Color::Yellow);
+    m_bodyRect.setFillColor(headColor);
     m_bodyRect.setPosition(sf::Vector2f(head->position.x * m_size, head->position.y * m_size));
     l_window.draw(m_bodyRect);
     
-    m_bodyRect.setFillColor(sf::Color::Green);
+    m_bodyRect.setFillColor(bodyColor);
     for (auto itr = m_snakeBody.begin() + 1; itr != m_snakeBody.end(); ++itr) {
         m_bodyRect.setPosition(sf::Vector2f(itr->position.x * m_size, itr->position.y * m_size));
         l_window.draw(m_bodyRect);
