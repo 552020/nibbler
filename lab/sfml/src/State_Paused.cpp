@@ -59,6 +59,6 @@ void State_Paused::Draw() {
 
 void State_Paused::Unpause(EventDetails* l_details) {
     (void)l_details; // Suppress unused parameter warning
-    m_stateMgr->SwitchTo(StateType::Game);
+    m_stateMgr->SwitchTo(StateType::Mushroom);
 }
 

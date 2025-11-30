@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 
-EventManager::EventManager() : m_hasFocus(true), m_currentState(StateType::Game) {
+EventManager::EventManager() : m_hasFocus(true), m_currentState(StateType::Mushroom) {
     LoadBindings();
 }
 

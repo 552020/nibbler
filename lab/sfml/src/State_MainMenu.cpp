@@ -61,7 +61,7 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate() {
-    if (m_stateMgr->HasState(StateType::Game)
+    if (m_stateMgr->HasState(StateType::Mushroom)
         && m_labels[0].getString() == "PLAY")
     {
         m_labels[0].setString(sf::String("RESUME"));
@@ -110,7 +110,7 @@ void State_MainMenu::MouseClick(EventDetails* l_details) {
             std::cout << "Button " << i << " clicked!" << std::endl;
             if (i == 0) {
                 std::cout << "Switching to Game state" << std::endl;
-                m_stateMgr->SwitchTo(StateType::Game);
+                m_stateMgr->SwitchTo(StateType::Mushroom);
             } else if (i == 1) {
                 // Credits state.
             } else if (i == 2) {
