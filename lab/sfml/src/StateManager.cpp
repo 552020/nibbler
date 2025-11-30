@@ -5,6 +5,7 @@
 #include "State_Game.hpp"
 #include "State_Mushroom.hpp"
 #include "State_Paused.hpp"
+#include "State_GameOver.hpp"
 #include <algorithm>
 
 // NOTE: RegisterState template implementation is in the header file (StateManager.hpp)
@@ -20,6 +21,7 @@ StateManager::StateManager(SharedContext* l_shared)
     RegisterState<State_Game>(StateType::Game);
     RegisterState<State_Mushroom>(StateType::Mushroom);
     RegisterState<State_Paused>(StateType::Paused);
+    RegisterState<State_GameOver>(StateType::GameOver);
 }
 
 StateManager::~StateManager() {

@@ -93,8 +93,7 @@ void State_Game::Update(const sf::Time& l_time) {
         if (m_deathAnimationTime <= 0.0f) {
             // Animation finished, switch to game over
             std::cout << "Death animation finished. Switching to GameOver state..." << std::endl;
-            // m_stateMgr->SwitchTo(StateType::GameOver); // Commented out until State_GameOver is created
-            std::cout << "WARNING: State_GameOver not implemented yet!" << std::endl;
+            m_stateMgr->SwitchTo(StateType::GameOver);
         }
     }
     
@@ -141,14 +140,12 @@ void State_Game::Update(const sf::Time& l_time) {
                   << ", Body size: " << m_snake.GetPosition().x << std::endl;
         moveCount++;
         
-        // Check for game over conditions
-        if (m_snake.HasLost()) {
-            std::cout << "Game Over! Snake has lost. Attempting to switch to GameOver state..." << std::endl;
-            // Switch to game over state
-            // NOTE: State_GameOver doesn't exist yet, so this will fail silently
-            // For now, just pause or show message
-            std::cout << "WARNING: State_GameOver not implemented yet!" << std::endl;
-            // m_stateMgr->SwitchTo(StateType::GameOver); // Commented out until State_GameOver is created
+        // Check for game over conditions (this shouldn't happen here since we check before moving)
+        // But keeping it as a safety check
+        if (m_snake.HasLost() && !m_isDying) {
+            std::cout << "Game Over detected! Starting death animation..." << std::endl;
+            m_isDying = true;
+            m_deathAnimationTime = 2.0f;
         }
     }
 }

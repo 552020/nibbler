@@ -4,7 +4,7 @@
 #include <iostream>
 
 State_MainMenu::State_MainMenu(StateManager* l_stateManager)
-    : BaseState(l_stateManager), m_text(m_font), m_labels{m_font, m_font, m_font} {
+    : BaseState(l_stateManager), m_text(m_font), m_labels{m_font, m_font, m_font, m_font} {
 }
 
 State_MainMenu::~State_MainMenu() {
@@ -26,12 +26,13 @@ void State_MainMenu::OnCreate() {
     m_buttonPos = sf::Vector2f(400, 200);
     m_buttonPadding = 4; // 4px.
     
-    std::string str[3];
+    std::string str[4];
     str[0] = "PLAY";
-    str[1] = "CREDITS";
-    str[2] = "EXIT";
+    str[1] = "MUSHROOM";
+    str[2] = "CREDITS";
+    str[3] = "EXIT";
     
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         sf::Vector2f buttonPosition(m_buttonPos.x, m_buttonPos.y +
             (i * (m_buttonSize.y + m_buttonPadding)));
         m_rects[i].setSize(m_buttonSize);
@@ -61,7 +62,7 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate() {
-    if (m_stateMgr->HasState(StateType::Mushroom)
+    if (m_stateMgr->HasState(StateType::Game)
         && m_labels[0].getString() == "PLAY")
     {
         m_labels[0].setString(sf::String("RESUME"));
@@ -82,7 +83,7 @@ void State_MainMenu::Draw() {
     sf::RenderWindow* window = m_stateMgr->GetContext()->
         m_wind->GetRenderWindow();
     window->draw(m_text);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         window->draw(m_rects[i]);
         window->draw(m_labels[i]);
     }
@@ -94,7 +95,7 @@ void State_MainMenu::MouseClick(EventDetails* l_details) {
     
     float halfX = m_buttonSize.x / 2.0f;
     float halfY = m_buttonSize.y / 2.0f;
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         sf::Vector2f buttonPos = m_rects[i].getPosition();
         float left = buttonPos.x - halfX;
         float right = buttonPos.x + halfX;
@@ -109,11 +110,16 @@ void State_MainMenu::MouseClick(EventDetails* l_details) {
         {
             std::cout << "Button " << i << " clicked!" << std::endl;
             if (i == 0) {
-                std::cout << "Switching to Game state" << std::endl;
-                m_stateMgr->SwitchTo(StateType::Mushroom);
+                // PLAY button - switch to actual snake game
+                std::cout << "Switching to Game state (snake game)" << std::endl;
+                m_stateMgr->SwitchTo(StateType::Game);
             } else if (i == 1) {
-                // Credits state.
+                // MUSHROOM button - switch to bouncing mushroom demo
+                std::cout << "Switching to Mushroom state (demo)" << std::endl;
+                m_stateMgr->SwitchTo(StateType::Mushroom);
             } else if (i == 2) {
+                // Credits state.
+            } else if (i == 3) {
                 std::cout << "Closing window" << std::endl;
                 m_stateMgr->GetContext()->m_wind->Close();
             }

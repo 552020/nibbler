@@ -24,8 +24,8 @@ private:
     sf::Vector2f m_buttonSize;
     sf::Vector2f m_buttonPos;
     unsigned int m_buttonPadding;
-    sf::RectangleShape m_rects[3];
-    sf::Text m_labels[3];
+    sf::RectangleShape m_rects[4];
+    sf::Text m_labels[4];
 };
 
 // SFML types used in this file:
