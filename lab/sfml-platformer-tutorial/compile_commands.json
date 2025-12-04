@@ -1,0 +1,52 @@
+[
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/Game.cpp -o src/Game.o",
+    "file": "src/Game.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/main.cpp -o src/main.o",
+    "file": "src/main.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/Window.cpp -o src/Window.o",
+    "file": "src/Window.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/Snake.cpp -o src/Snake.o",
+    "file": "src/Snake.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/World.cpp -o src/World.o",
+    "file": "src/World.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/TextBox.cpp -o src/TextBox.o",
+    "file": "src/TextBox.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/EventManager.cpp -o src/EventManager.o",
+    "file": "src/EventManager.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/BaseState.cpp -o src/BaseState.o",
+    "file": "src/BaseState.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/StateManager.cpp -o src/StateManager.o",
+    "file": "src/StateManager.cpp"
+  },
+  {
+    "directory": "/Users/stefano/Documents/Nibbler/lab/sfml",
+    "command": "g++ -std=c++17 -ISFML/include -Isrc -c src/State_Intro.cpp -o src/State_Intro.o",
+    "file": "src/State_Intro.cpp"
+  }
+]
