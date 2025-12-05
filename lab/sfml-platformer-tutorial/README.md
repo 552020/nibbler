@@ -19,6 +19,24 @@ This is a platformer game implementation featuring:
 - **Chapter 7**: Game map design, entity management, and collision detection
 - **Chapter 8+**: (To be added as tutorial progresses)
 
+## Implementation Progress
+
+### First Step: Utilities.h
+
+The first implementation in this new project is **`Utilities.h`**, which provides the `GetWorkingDirectory()` function. This is essential because:
+
+- **Problem**: When loading resources (textures, sounds, config files) with relative paths, the working directory can vary depending on how/where the program is launched (terminal, IDE, different folder, etc.)
+
+- **Solution**: `GetWorkingDirectory()` returns the directory where the executable is located, ensuring resource paths are always relative to the executable location, not the current working directory
+
+- **Usage**: 
+  ```cpp
+  std::string basePath = Utils::GetWorkingDirectory();
+  texture.loadFromFile(basePath + "assets/player.png");  // Always works!
+  ```
+
+This provides consistent, reliable resource loading regardless of where the program is launched from, which is crucial for the platformer game's asset management system.
+
 ## Project Structure
 
 ```
