@@ -17,3 +17,4 @@ lab/snake/snake
 .cache/
 lab/sfml/.cache/
 lab/snake/.cache/
+lab/coding_jesus/venv/
